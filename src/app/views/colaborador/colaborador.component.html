@@ -87,7 +87,7 @@
 
               <div class="mb-3">
                 <label for="idSuperiorImediato" class="form-label">Superior Imediato</label>
-                <select class="form-select" aria-label="Default select example" id="idSuperiorImediato" formControlName="idSuperiorImediato">                  
+                <select class="form-select" aria-label="Default select example" id="idSuperiorImediato" formControlName="idSuperiorImediato" >                  
                   <option *ngFor="let superior of colaboradoresAtivos | async" [value]="superior.id">{{superior.nome}}</option>                
                 </select>
               </div>
