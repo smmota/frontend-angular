@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+$background-color: #252525 !important;
+$font-color: #fff !important;
+
+.p-card {
+    background-color: $background-color;
+    color: $font-color;   
+}
+
+.text-center {
+    text-align: center;
+}
+
+body {
+    // background-image: url(./assets/background_image.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: 0.95;
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body {
+     height: 100%;
+}

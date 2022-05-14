@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Usuários</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">          
+            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addUsuario" type="submit">Novo</button>
+          </div>
+        </div>
+      </nav>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Login</th>
+            <th scope="col">Ativo</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarioList">
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.nome}}</td>
+            <td>{{usuario.loginUser}}</td>            
+            <td>
+              <input type="checkbox" checked="{{usuario.ativo}}" formControlName="ativo" class="form-check-input" id="ativo">
+            </td>
+            <td>
+              <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editUsuario" (click)="editar(usuario)">Editar</button>
+              <button type="button" class="btn btn-outline-danger" (click)="deletar(usuario)">Excluir</button>
+            </td>
+          </tr>    
+        </tbody>
+      </table>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <form [formGroup]="usuarioDetalhe">
+
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" formControlName="nome" class="form-control" id="nome" aria-describedby="emailHelp">            
+              </div>
+
+              <div class="mb-3">
+                <label for="loginUser" class="form-label">Login</label>
+                <input type="text" formControlName="loginUser" class="form-control" id="loginUser" aria-describedby="emailHelp">            
+              </div>
+
+             <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" formControlName="senha" class="form-control" id="senha" aria-describedby="emailHelp">            
+             </div>   
+              
+              <div class="mb-3 form-check">
+                <input type="checkbox" formControlName="ativo" class="form-check-input" id="ativo">
+                <label class="form-check-label" for="ativo">Ativo</label>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-outline-success" (click)="adicionar()" data-bs-dismiss="modal">Salvar</button>
+              </div>
+
+            </form>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel">Editar Usuário</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <form [formGroup]="usuarioDetalhe">
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" formControlName="nome" class="form-control" id="nome" aria-describedby="emailHelp">            
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="loginUser" class="form-label">Login</label>
+                    <input type="text" formControlName="loginUser" class="form-control" id="loginUser" aria-describedby="emailHelp">            
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" formControlName="senha" class="form-control" id="senha" aria-describedby="emailHelp">            
+                  </div>                  
+                  
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" formControlName="ativo" class="form-check-input" id="ativo">
+                    <label class="form-check-label" for="ativo">Ativo</label>
+                  </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-out-line-success" (click)="atualizar()" data-bs-dismiss="modal">Salvar</button>
+              </div>
+
+            </form>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+</div>
