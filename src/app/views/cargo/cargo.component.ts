@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { RequestCargo } from 'src/app/resources/models/RequestCargo';
+import { AlertService } from 'src/app/resources/services/alert.service';
 import { CargoService } from 'src/app/resources/services/cargo.service';
 
 @Component({
@@ -17,19 +19,23 @@ export class CargoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private cargoService: CargoService
+    private cargoService: CargoService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
 
     this.getAll();
+    this.novo();   
+  }
 
+  novo() {
     this.cargoDetalhe = this.formBuilder.group({
       id : [''],
       descricao : [''],
       atividade: [''],
       ativo: true
-    });    
+    }); 
   }
 
   adicionar() {
@@ -47,13 +53,13 @@ export class CargoComponent implements OnInit {
   }
 
     getAll() {
-      this.cargoService.getAll().subscribe(res => {      
-      this.cargoList = res; 
 
-    }, httpError => {
-      console.log("Erro ao obter os cargos")
-      // this.alertService.error(httpError.error.message);
-    })
+    this.cargoService.getAll().toPromise()
+    .then((cargos) => {
+      var listaCargos = cargos;
+    }).catch((httpError) => {
+      this.alertService.error(httpError.error.message);
+    });
   }
 
   deletar(cargo: RequestCargo) {
@@ -61,7 +67,7 @@ export class CargoComponent implements OnInit {
     this.cargoService.deletar(cargo).subscribe(res => {
       console.log(res);
       alert("Setor removido com sucesso!");
-      this.getAll();
+      this.getAll();      
     }, httpError => {
       console.log(httpError);
     });
@@ -82,12 +88,12 @@ export class CargoComponent implements OnInit {
     
     this.cargoService.atualizar(this.requestCargo).subscribe(res => {
       console.log(res);      
-      this.getAll();
+      this.getAll();      
       // this.alertService.success();
     }, httpError => {
       debugger
       console.log(httpError);
-      // this.alertService.error(httpError.error.message);
+      this.alertService.error(httpError.error.message);
       });
   }
 

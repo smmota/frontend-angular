@@ -17,7 +17,7 @@ export class ColaboradorComponent implements OnInit {
 
   colaboradorDetalhe!: FormGroup;
   requestColaborador: RequestColaborador = new RequestColaborador()
-  colaboradorList: RequestColaborador[] = [];
+  colaboradorList!: Observable<RequestColaborador[]>;
   colaboradoresAtivos!: Observable<RequestColaborador[]>;
   cargosAtivos!: Observable<RequestCargo[]>;
   setoresAtivos!: Observable<RequestSetor[]>;
@@ -30,15 +30,17 @@ export class ColaboradorComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.colaboradorList = this.colaboradorService.getAll();
     this.colaboradoresAtivos = this.colaboradorService.getAtivos();
     this.cargosAtivos = this.cargoService.getAtivos();
-    this.setoresAtivos = this.setorService.getAtivos();
+    this.setoresAtivos = this.setorService.getAtivos()
 
-    // this.getColaboradoresAtivos();    
-    // this.getCargosAtivos();
-    // this.getSetoresAtivos();
-    this.getAll();
+    this.novo();
 
+  }
+
+  novo() {
+    
     this.colaboradorDetalhe = this.formBuilder.group({
       id : [''],
       nome : [''],
@@ -50,11 +52,12 @@ export class ColaboradorComponent implements OnInit {
       idSuperiorImediato: [''],
       ativo: true
     });   
-
   }
 
   adicionar() {
     console.log(this.colaboradorDetalhe);
+    debugger
+
     this.requestColaborador.id = 0;    
     this.requestColaborador.nome   = this.colaboradorDetalhe.value.nome;
     this.requestColaborador.cpf = this.colaboradorDetalhe.value.cpf;
@@ -67,77 +70,56 @@ export class ColaboradorComponent implements OnInit {
 
     this.colaboradorService.adicionar(this.requestColaborador).subscribe(res => {
       console.log(res);
-      this.getAll();
+      this.colaboradorList = this.colaboradorService.getAll();
     }, httpError => {
       console.log(httpError);
       });
-}
+  }
 
-  getAll() {
-    this.colaboradorService.getAll().subscribe(res => {      
-    this.colaboradorList = res; 
-      debugger
-  }, httpError => {
-    console.log("Erro ao obter os colaboradores")
-    // this.alertService.error(httpError.error.message);
-  })
-}
+  deletar(colaborador: RequestColaborador) {
 
-deletar(colaborador: RequestColaborador) {
-  debugger
-  this.colaboradorService.deletar(colaborador).subscribe(res => {
-    console.log(res);
-    alert("Colaborador removido com sucesso!");
-    this.getAll();
-  }, httpError => {
-    console.log(httpError);
-  });
-}
-
-editar(colaborador: RequestColaborador) {
-  this.colaboradorDetalhe.controls['id'].setValue(colaborador.id);
-  this.colaboradorDetalhe.controls['nome'].setValue(colaborador.nome);
-  this.colaboradorDetalhe.controls['cpf'].setValue(colaborador.cpf);
-  this.colaboradorDetalhe.controls['endereco'].setValue(colaborador.endereco);
-  this.colaboradorDetalhe.controls['dataNascimento'].setValue(colaborador.dataNascimento);
-  this.colaboradorDetalhe.controls['idCargo'].setValue(colaborador.idCargo);
-  this.colaboradorDetalhe.controls['idSetor'].setValue(colaborador.idSetor);
-  this.colaboradorDetalhe.controls['idSuperiorImediato'].setValue(colaborador.idSuperiorImediato);
-  this.colaboradorDetalhe.controls['ativo'].setValue(colaborador.ativo);
-}
-
-atualizar() {
-  this.requestColaborador.id = this.colaboradorDetalhe.value.id;
-  this.requestColaborador.nome   = this.colaboradorDetalhe.value.nome;
-  this.requestColaborador.cpf = this.colaboradorDetalhe.value.cpf;
-  this.requestColaborador.endereco = this.colaboradorDetalhe.value.endereco;
-  this.requestColaborador.dataNascimento = this.colaboradorDetalhe.value.dataNascimento;
-  this.requestColaborador.idSetor = this.colaboradorDetalhe.value.idSetor;
-  this.requestColaborador.idCargo = this.colaboradorDetalhe.value.idCargo;
-  this.requestColaborador.idSuperiorImediato = this.colaboradorDetalhe.value.idSuperiorImediato;
-  this.requestColaborador.ativo = this.colaboradorDetalhe.value.ativo;
-  
-  this.colaboradorService.atualizar(this.requestColaborador).subscribe(res => {
-    console.log(res);      
-    this.getAll();
-    // this.alertService.success();
-  }, httpError => {
-    debugger
-    console.log(httpError);
-    // this.alertService.error(httpError.error.message);
+    this.colaboradorService.deletar(colaborador).subscribe(res => {
+      console.log(res);
+      alert("Colaborador removido com sucesso!");
+      this.colaboradorList = this.colaboradorService.getAll();
+    }, httpError => {
+      console.log(httpError);
     });
-}
+  }
 
-getColaboradoresAtivos() {
-  this.colaboradoresAtivos = this.colaboradorService.getAtivos();
-}
+  editar(colaborador: RequestColaborador) {
+    this.colaboradorDetalhe.controls['id'].setValue(colaborador.id);
+    this.colaboradorDetalhe.controls['nome'].setValue(colaborador.nome);
+    this.colaboradorDetalhe.controls['cpf'].setValue(colaborador.cpf);
+    this.colaboradorDetalhe.controls['endereco'].setValue(colaborador.endereco);
+    this.colaboradorDetalhe.controls['idCargo'].setValue(colaborador.idCargo);
+    this.colaboradorDetalhe.controls['idSetor'].setValue(colaborador.idSetor);
+    this.colaboradorDetalhe.controls['idSuperiorImediato'].setValue(colaborador.idSuperiorImediato);
+    this.colaboradorDetalhe.controls['ativo'].setValue(colaborador.ativo);
+    this.colaboradorDetalhe.controls['dataNascimento'].setValue(colaborador.dataNascimento);
+  
+  }
 
-getCargosAtivos() {
-  this.cargosAtivos = this.cargoService.getAtivos();
-}
-
-getSetoresAtivos() {
-  this.setoresAtivos = this.setorService.getAtivos();
- }
+  atualizar() {
+    this.requestColaborador.id = this.colaboradorDetalhe.value.id;
+    this.requestColaborador.nome   = this.colaboradorDetalhe.value.nome;
+    this.requestColaborador.cpf = this.colaboradorDetalhe.value.cpf;
+    this.requestColaborador.endereco = this.colaboradorDetalhe.value.endereco;
+    this.requestColaborador.dataNascimento = this.colaboradorDetalhe.value.dataNascimento;
+    this.requestColaborador.idSetor = this.colaboradorDetalhe.value.idSetor;
+    this.requestColaborador.idCargo = this.colaboradorDetalhe.value.idCargo;
+    this.requestColaborador.idSuperiorImediato = this.colaboradorDetalhe.value.idSuperiorImediato;
+    this.requestColaborador.ativo = this.colaboradorDetalhe.value.ativo;
+    
+    this.colaboradorService.atualizar(this.requestColaborador).subscribe(res => {
+      console.log(res);      
+      this.colaboradorList = this.colaboradorService.getAll();
+      // this.alertService.success();
+    }, httpError => {
+      debugger
+      console.log(httpError);
+      // this.alertService.error(httpError.error.message);
+      });
+  }
 
 }

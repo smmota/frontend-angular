@@ -5,7 +5,6 @@ import { RequestSetor } from '../models/RequestSetor';
 import { Observable, tap } from 'rxjs';
 // import { catchError, retry } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { ResponseSetor } from '../models/ResponseSetor';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +17,7 @@ export class SetorService {
 
   constructor(
       private httpCliente: HttpClient) { 
-
     this.url = this.apiUrl + "setor";
-    // this.token = authService.loginResponse.token;
   }
 
   adicionar(setor: RequestSetor): Observable<RequestSetor> {
@@ -28,16 +25,7 @@ export class SetorService {
   }
 
   getAll(): Observable<RequestSetor[]> {
-    // this.token = authService.loginResponse.token;
-    // debugger
     return this.httpCliente.get<RequestSetor[]>(this.url
-    //   , {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     //'Authorization': `Bearer ${this.token}`
-    //     'Authorization': 'Bearer ' + this.token 
-    //   })   
-    // }
     );
   }
 

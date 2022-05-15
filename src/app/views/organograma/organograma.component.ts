@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TreeNode} from 'primeng/api';
+import { Organograma } from 'src/app/resources/models/Organograma';
+import { OrganogramaService } from 'src/app/resources/services/organograma.service';
 
 @Component({
   selector: 'app-organograma',
@@ -11,9 +13,11 @@ export class OrganogramaComponent implements OnInit {
   data!: TreeNode[];
   selectedNode!: TreeNode;
 
-  constructor() { }
+  dataResult!: Organograma;
 
-  ngOnInit(): void {
+  constructor(private organogramaService: OrganogramaService) { }
+
+  ngOnInit(): void {    
 
     this.data = [{
       label: 'Presidente',

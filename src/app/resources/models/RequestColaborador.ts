@@ -11,6 +11,7 @@ import { RequestSetor } from "./RequestSetor";
     public idCargo: number = 0;
     public idSuperiorImediato: number = 0;
     public ativo!: boolean;
-    public cargo!: RequestCargo
-    public setor!: RequestSetor
+    public cargo!: RequestCargo;
+    public setor!: RequestSetor;
+    public subordinados!: RequestColaborador[];
 }

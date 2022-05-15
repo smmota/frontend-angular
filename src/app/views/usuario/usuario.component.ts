@@ -21,7 +21,10 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAll();
+    this.novo();    
+  }
 
+  novo() {
     this.usuarioDetalhe = this.formBuilder.group({
       id : [''],
       nome : [''],
@@ -29,7 +32,6 @@ export class UsuarioComponent implements OnInit {
       senha: [''],
       ativo: true
     }); 
-
   }
 
   adicionar() {

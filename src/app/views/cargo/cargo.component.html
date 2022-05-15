@@ -1,10 +1,10 @@
 <fieldset>
   <div class="panel panel-primary">
-    <div class="panel-heading text-center"><h2>Cargos</h2></div>
+    <div class="panel-heading title"><h2>Cargos</h2></div>
 
     <div class="panel-body">
-      <div>
-        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addCargo" type="submit">Novo</button>
+      <div class="col-12 me-auto mb-2 mb-lg-0">
+        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addCargo" type="submit" (click)="novo()" >Novo</button>
       </div>
       <div class="form-group">
         <table class="table table-hover">
@@ -12,8 +12,7 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Descrição</th>
-              <th scope="col">Atividade</th>
-              <th scope="col">Ativo</th>
+              <th scope="col">Atividade</th>              
               <th scope="col"></th>
             </tr>
           </thead>
@@ -21,10 +20,7 @@
             <tr *ngFor="let cargo of cargoList">
               <td>{{cargo.id}}</td>
               <td>{{cargo.descricao}}</td>
-              <td>{{cargo.atividade}}</td>            
-              <td>
-                <input type="checkbox" checked="{{cargo.ativo}}" formControlName="ativo" class="form-check-input" id="ativo">
-              </td>
+              <td>{{cargo.atividade}}</td>                          
               <td>
                 <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editCargo" (click)="editar(cargo)">Editar</button>
                 <button type="button" class="btn btn-outline-danger" (click)="deletar(cargo)">Excluir</button>
@@ -40,7 +36,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h2 class="modal-title" id="exampleModalLabel">Adicionar Cargo</h2>
+              <h2 class="modal-title">Adicionar Cargo</h2>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -61,7 +57,7 @@
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
                   <button type="button" class="btn btn-outline-success" (click)="adicionar()" data-bs-dismiss="modal">Salvar</button>
                 </div>
 
@@ -79,7 +75,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h2 class="modal-title" id="exampleModalLabel">Editar Cargo</h2>
+              <h2 class="modal-title">Editar Cargo</h2>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -102,8 +98,8 @@
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                  <button type="button" class="btn btn-out-line-success" (click)="atualizar()" data-bs-dismiss="modal">Salvar</button>
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-outline-success" (click)="atualizar()" data-bs-dismiss="modal">Salvar</button>
                 </div>
 
               </form>
@@ -116,253 +112,3 @@
     </div>
   </div>
 </fieldset>
-
-
-<!-- <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cargos</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">          
-          <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addCargo" type="submit">Novo</button>
-        </div>
-      </div>
-    </nav>
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Atividade</th>
-          <th scope="col">Ativo</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cargo of cargoList">
-          <td>{{cargo.id}}</td>
-          <td>{{cargo.descricao}}</td>
-          <td>{{cargo.atividade}}</td>            
-          <td>
-            <input type="checkbox" checked="{{cargo.ativo}}" formControlName="ativo" class="form-check-input" id="ativo">
-          </td>
-          <td>
-            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editCargo" (click)="editar(cargo)">Editar</button>
-            <button type="button" class="btn btn-outline-danger" (click)="deletar(cargo)">Excluir</button>
-          </td>
-        </tr>    
-      </tbody>
-    </table> -->
-
-  <!-- Add Modal -->
-  <!-- <div class="modal fade" id="addCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="exampleModalLabel">Adicionar Cargo</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-                    
-          <form [formGroup]="cargoDetalhe">
-            <div class="mb-3">
-              <label for="descricao" class="form-label">Descrição</label>
-              <input type="text" formControlName="descricao" class="form-control" id="descricao" aria-describedby="emailHelp">            
-            </div>
-            <div class="mb-3">
-              <label for="atividade" class="form-label">Atividade</label>                
-              <textarea id="atividade" name="atividade" formControlName="atividade" class="form-control" type="text" aria-describedby="emailHelp"></textarea>
-            </div>
-            
-            <div class="mb-3 form-check">
-              <input type="checkbox" formControlName="ativo" class="form-check-input" id="ativo">
-              <label class="form-check-label" for="ativo">Ativo</label>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-outline-success" (click)="adicionar()" data-bs-dismiss="modal">Salvar</button>
-            </div>
-
-          </form>
-
-        </div>
-        
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Edit Modal -->
-  <!-- <div class="modal fade" id="editCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="exampleModalLabel">Editar Cargo</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          
-          <form [formGroup]="cargoDetalhe">
-
-            <div class="mb-3">
-              <label for="descricao" class="form-label">Descrição</label>
-              <input type="text" formControlName="descricao" class="form-control" id="descricao" aria-describedby="emailHelp">            
-            </div>
-
-            <div class="mb-3">
-              <label for="atividade" class="form-label">Atividade</label>                
-              <textarea id="atividade" name="atividade" formControlName="atividade" class="form-control" type="text" aria-describedby="emailHelp"></textarea>
-            </div>
-            
-            <div class="mb-3 form-check">
-              <input type="checkbox" formControlName="ativo" class="form-check-input" id="ativo">
-              <label class="form-check-label" for="ativo">Ativo</label>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-out-line-success" (click)="atualizar()" data-bs-dismiss="modal">Salvar</button>
-            </div>
-
-          </form>
-
-        </div>
-        
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-
-<!-- <!DOCTYPE html>
-<head></head>
-<body>
-    <form class="form-horizontal">
-        <fieldset>
-            <div class="panel panel-primary"> -->
-                <!-- <div class="panel-heading"><app-titulo [titulo]="title"></app-titulo></div> -->
-                <!-- <div class="panel-heading"><h2>Cargo</h2></div>
-                
-                <div class="panel-body">
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="descricao">Descrição</label>  
-                        <div class="col-md-5">
-                            <input id="descricao" [(ngModel)]="requestCargo.descricao" name="descricao" placeholder="" class="form-control input-md" required="" type="text">
-                        </div>
-
-                        <label class="col-md-1 control-label" for="radios">Status</label>
-                        <div class="col-md-4"> 
-                            <label required="" class="radio-inline" for="radios-0" >
-                            <input name="status" id="status" [(ngModel)]="requestCargo.ativo" value="true" type="radio" checked="true" required>
-                            Ativo
-                            </label> 
-                            <label class="radio-inline" for="radios-1">
-                            <input name="status" id="status" [(ngModel)]="requestCargo.ativo" value="false" type="radio">
-                            Inativo
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="atividade">Atividade</label>  
-                        <div class="col-md-8">
-                            <textarea id="atividade" name="atividade" [(ngModel)]="requestCargo.atividade" placeholder="" class="form-control input-md" required="" type="text"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="Cadastrar"></label>
-                        <div class="col-md-8">
-                            <button id="Cadastrar" name="Cadastrar" class="btn btn-success" type="Submit" (click)="doSave()">Cadastrar</button>
-                            <button id="Cancelar" name="Cancelar" class="btn btn-danger" type="Reset" >Voltar</button>
-                            <button id="Listar" name="Listar" class="btn btn-danger" type="button" (click)="listarCargos()">Listar</button>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-        </fieldset>
-    </form>
-</body> -->
-
-
-<!-- <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-</head>
-<body>
-    <div>
-        <h1>Cadastro de Cargo</h1>
-        <br/>
-    </div>
-
-    <form>
-        <fieldset>
-            <div>
-                <label>Descrição</label>
-                <input type="text" name="descricao" id="descricao">
-            </div>
-
-            <div>
-                <label>Atividade</label>
-                <textarea row="6" name="atividade" id="atividade"></textarea>
-            </div>
-        </fieldset>
-    </form>
-
-
-</body> -->
-
-<!-- <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul> -->
-            <!-- <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              
-            </form> -->
-            <!-- <button class="btn btn-outline-success" type="submit">Adicionar</button>
-          </div>
-        </div>
-      </nav>
-</div> -->
-

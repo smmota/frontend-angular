@@ -25,13 +25,16 @@ export class SetorComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAll();
+    this.novo();   
+  }
 
+  novo() {
     this.setorDetalhe = this.formBuilder.group({
       id : [''],
       descricao : [''],
       atividade: [''],
       ativo: true
-    });     
+    });  
   }
 
     adicionar() {

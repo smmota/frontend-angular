@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 $background-color: #252525 !important;
 $font-color: #fff !important;
 
@@ -8,19 +7,43 @@ $font-color: #fff !important;
     color: $font-color;   
 }
 
-.text-center {
-    text-align: center;
-}
 
 body {
-    // background-image: url(./assets/background_image.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    opacity: 0.95;
+
+    background: linear-gradient(to bottom, #718bc2, #8f7c62);
+   
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 html, body {
      height: 100%;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.modal-content {
+    background: linear-gradient(to bottom, #718bc2, #8f7c62);
+}
+
+.title {
+    text-align: center;
+}
+
+.table {
+    margin-top: 30px;
+}
+
+tr:nth-child(even) {
+    // background-color: #a39898;
+}
+
+th {
+    background-color: #b16304 !important;
+    
+  }
+
+  .selected {
+    font-weight: bold;
 }
